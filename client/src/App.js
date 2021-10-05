@@ -14,7 +14,6 @@ import {
   LoginPage,
   ContactPage,
   SinglePostPage,
-  ErrorPage,
   AboutPage,
   WritePage,
 } from "./pages";
