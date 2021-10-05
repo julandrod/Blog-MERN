@@ -1,0 +1,10 @@
+export { default as AboutPage } from "./AboutPage";
+export { default as ContactPage } from "./ContactPage";
+export { default as ErrorPage } from "./ErrorPage";
+export { default as HomePage } from "./HomePage";
+export { default as LoginPage } from "./LoginPage";
+export { default as LoadingPage } from "./LoadingPage";
+export { default as PostsPage } from "./PostsPage";
+export { default as RegisterPage } from "./RegisterPage";
+export { default as SinglePostPage } from "./SInglePostPage";
+export { default as WritePage } from "./WritePage";
