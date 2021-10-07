@@ -29,7 +29,7 @@ const Featured = () => {
         <Categories>
           <span>/ Categories: </span>
           <ul>
-            {post?.categories.map((item, idx) => (
+            {post?.categories?.map((item, idx) => (
               <li key={idx}>{item}</li>
             ))}
           </ul>

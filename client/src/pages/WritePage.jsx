@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { createPostApi } from "../store/postsSlice";
+import { createPostApi, updatePostApi } from "../store/postsSlice";
 import { selectUserState } from "../store/userSlice";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router";
 import {
   getStorage,
   ref,
@@ -65,27 +67,22 @@ const ButtonContainer = styled.div`
   justify-content: center;
   padding: 20px 30px;
   width: 100%;
-  border-left: 1px solid var(--clr-primary-1);
-  border-right: 1px solid var(--clr-primary-1);
-  border-bottom: 1px solid var(--clr-primary-1);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+`;
 
-  button {
-    margin: 20px 0;
-    width: 40%;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 10px;
-    border-radius: 50px;
-    background-color: var(--clr-primary-1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    color: var(--text-color);
-    border: none;
-    cursor: pointer;
-  }
+const Button = styled.button`
+  margin: 20px 0;
+  width: 40%;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: var(--clr-primary-1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
 
-  button:hover {
+  &:hover {
     opacity: 0.9;
     transform: scale(0.98);
   }
@@ -94,10 +91,27 @@ const ButtonContainer = styled.div`
 const WritePage = () => {
   const { userInfo } = useSelector(selectUserState);
 
-  const [postInfo, setPostInfo] = useState("");
+  const [postInfo, setPostInfo] = useState({
+    title: "",
+    desc: "",
+  });
   const [file, setFile] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [photoUrl, setPhotoUrl] = useState();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state) {
+      setPostInfo((prev) => ({
+        ...prev,
+        title: state.singlePost.title,
+        desc: state.singlePost.desc,
+      }));
+      setCategories(state.singlePost.categories);
+    }
+  }, [state]);
 
   const handleChange = (e) => {
     setPostInfo((prev) => {
@@ -110,50 +124,77 @@ const WritePage = () => {
     setCategories(trimCategories);
   };
 
-  const handleSubmit = (e) => {
+  const handleUpload = (e) => {
     e.preventDefault();
 
-    const fileName = new Date().getTime() + file.name;
-    const storage = getStorage(app);
-    const storageRef = ref(storage, fileName);
+    if (file) {
+      const fileName = new Date().getTime() + file.name;
+      const storage = getStorage(app);
+      const storageRef = ref(storage, fileName);
 
-    const uploadTask = uploadBytesResumable(storageRef, file);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-          default:
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+          }
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+            // {
+            //   const infoPost = {
+            //     ...postInfo,
+            //     categories,
+            //     photo: downloadURL,
+            //     userId: userInfo.info._id,
+            //   };
+            //   const token = userInfo.token;
+            //   dispatch(createPostApi({ infoPost, token }));
+            // }
+            setPhotoUrl(downloadURL)
+          );
         }
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          const infoPost = {
-            ...postInfo,
-            categories,
-            photo: downloadURL,
-            userId: userInfo.info._id,
-          };
-          const token = userInfo.token;
-
-          dispatch(createPostApi({ infoPost, token }));
-        });
-      }
-    );
+      );
+    }
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const infoPost = {
+      ...postInfo,
+      categories,
+      photo: photoUrl,
+      userId: userInfo.info._id,
+    };
+    const token = userInfo.token;
+    if (state) {
+      dispatch(updatePostApi({ id: state.id, infoPost, token }));
+    } else {
+      dispatch(
+        createPostApi({
+          infoPost,
+          token,
+        })
+      );
+    }
+    history.push("/posts")
+  };
+
+  console.log(photoUrl);
   return (
     <Wrapper>
       <TitleContainer>
@@ -167,6 +208,7 @@ const WritePage = () => {
               name="title"
               type="text"
               placeholder="title"
+              value={postInfo.title}
               onChange={handleChange}
             />
           </InputContainer>
@@ -176,16 +218,18 @@ const WritePage = () => {
               name="categories"
               type="text"
               placeholder="categories"
+              value={categories}
               onChange={handleCategories}
             />
             <span>Enter your categories separated by commas</span>
           </InputContainer>
           <InputContainer>
-            <label>Text</label>
+            <label>Description</label>
             <textarea
               name="desc"
               cols="30"
               rows="10"
+              value={postInfo.desc}
               onChange={handleChange}
               placeholder="Enter your post"
             ></textarea>
@@ -205,11 +249,16 @@ const WritePage = () => {
               id="file"
               onChange={(e) => setFile(e.target.files[0])}
             />
+            <ButtonContainer>
+              <Button type="button" onClick={handleUpload}>
+                Upload picture
+              </Button>
+            </ButtonContainer>
           </InputContainer>
           <ButtonContainer>
-            <button type="submit" onClick={handleSubmit}>
-              Publish
-            </button>
+            <Button type="submit" onClick={handleClick}>
+              {state ? "Update" : "Create"}
+            </Button>
           </ButtonContainer>
         </form>
       </FormContainer>

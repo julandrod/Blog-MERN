@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SignForm } from "../components/";
 import { useDispatch } from "react-redux";
 import { getUserInfoLogin } from "../store/userSlice";
+import { Link } from "react-router-dom";
 
 const Span = styled.span`
   margin-top: 15px;
@@ -22,18 +23,6 @@ const LoginPage = () => {
     dispatch(
       getUserInfoLogin({ email: userInfo.email, password: userInfo.password })
     );
-
-    //   try {
-    //     const response = await axios.post("/auth/login", {
-    //       email: userInfo.email,
-    //       password: userInfo.password,
-    //     });
-    //     console.log(response.data);
-    //     dispatch(login(response.data))
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
   };
 
   return (
@@ -45,7 +34,7 @@ const LoginPage = () => {
       login={true}
     >
       <Span>
-        Don’t have an account yet? <a href="">Create one.</a>
+        Don’t have an account yet? <Link to="/register">Create one.</Link>
       </Span>
     </SignForm>
   );

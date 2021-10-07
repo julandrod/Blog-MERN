@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Button, ButtonContainer } from "../styles/Button.styles";
 
 const ContactContainer = styled.section`
   display: flex;
@@ -84,37 +85,37 @@ const TextMessage = styled.textarea`
   }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 30px;
-  width: 100%;
-  border-left: 1px solid var(--clr-primary-1);
-  border-right: 1px solid var(--clr-primary-1);
-  border-bottom: 1px solid var(--clr-primary-1);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+// const ButtonContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px 30px;
+//   width: 100%;
+//   border-left: 1px solid var(--clr-primary-1);
+//   border-right: 1px solid var(--clr-primary-1);
+//   border-bottom: 1px solid var(--clr-primary-1);
+//   border-bottom-left-radius: 30px;
+//   border-bottom-right-radius: 30px;
 
-  button {
-    margin: 20px 0;
-    width: 40%;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 10px;
-    border-radius: 50px;
-    background-color: var(--clr-primary-1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    color: var(--text-color);
-    border: none;
-    cursor: pointer;
-  }
+//   button {
+//     margin: 20px 0;
+//     width: 40%;
+//     font-size: 16px;
+//     font-weight: 700;
+//     padding: 10px;
+//     border-radius: 50px;
+//     background-color: var(--clr-primary-1);
+//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+//     color: var(--text-color);
+//     border: none;
+//     cursor: pointer;
+//   }
 
-  button:hover {
-    opacity: 0.9;
-    transform: scale(0.98);
-  }
-`;
+//   button:hover {
+//     opacity: 0.9;
+//     transform: scale(0.98);
+//   }
+// `;
 
 const ContactPage = () => {
   return (
@@ -141,8 +142,10 @@ const ContactPage = () => {
             placeholder="Enter your message"
           ></TextMessage>
         </MessageContainer>
-        <ButtonContainer>
-          <button type="button">Submit</button>
+        <ButtonContainer width="100%" decoration={true}>
+          <Button type="button" width="200px">
+            Submit
+          </Button>
         </ButtonContainer>
       </FormContactContainer>
     </ContactContainer>

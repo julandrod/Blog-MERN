@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ErrorPage, LoadingPage } from ".";
 import { Sidebar } from "../components";
 import { getPostsApi, selectPostsState } from "../store/postsSlice";
+import { useLocation } from "react-router";
 
 const Wrapper = styled.section`
   display: flex;
@@ -59,12 +60,12 @@ const PostCard = styled.div`
 
 const PostsPage = () => {
   const { postsInfo, postsLoading, postsError } = useSelector(selectPostsState);
-  console.log(postsInfo);
   const dispatch = useDispatch();
+  const { search } = useLocation();
 
   useEffect(() => {
-    dispatch(getPostsApi());
-  }, [dispatch]);
+    dispatch(getPostsApi({ search }));
+  }, [dispatch, search]);
 
   if (postsLoading) return <LoadingPage />;
 
@@ -74,7 +75,7 @@ const PostsPage = () => {
     <Wrapper>
       <PostsContainer>
         {postsInfo?.map((post) => (
-          <PostCard>
+          <PostCard key={post._id}>
             <Link to={`/posts/${post?._id}`}>
               <img src={post?.photo} alt="" />
               <h2>{post?.title}</h2>

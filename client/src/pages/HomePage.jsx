@@ -22,7 +22,6 @@ const HomePage = () => {
 
   if (postsError) return <ErrorPage />;
 
-  console.log(process.env.REACT_APP_STORAGEBUCKET)
   return (
     <HomeContainer>
       <Featured />

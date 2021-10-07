@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { SignForm } from "../components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+const Span = styled.span`
+  margin-top: 15px;
+`;
 
 const RegisterPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -33,7 +39,11 @@ const RegisterPage = () => {
       setUserInfo={setUserInfo}
       handle={handleSubmit}
       login={false}
-    ></SignForm>
+    >
+      <Span>
+        Already have an account?  <Link to="/login">Login here.</Link>
+      </Span>
+    </SignForm>
   );
 };
 

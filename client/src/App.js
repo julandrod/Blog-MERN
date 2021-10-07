@@ -40,6 +40,7 @@ function App() {
         <Route exact path="/posts/:id">
           <SinglePostPage />
         </Route>
+        
         <Route exact path="/contact">
           <ContactPage />
         </Route>

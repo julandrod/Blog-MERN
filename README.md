@@ -4,7 +4,7 @@ Small blog made with the MERN stack, allows CRUD operations with the users and p
 
 ## Tech Stack
 
-**Client:** React, Redux, Styled Components, Firebase
+**Client:** React, Redux, Styled Components, Firebase, Redux
 
 **Server:** Node, Express, MongoDB, Bcrypt, Jsonwebtoken
 

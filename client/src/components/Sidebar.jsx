@@ -86,6 +86,8 @@ const PostContainer = styled.div`
   }
 `;
 
+const PostCard = styled.div``;
+
 const Sidebar = () => {
   const { userInfo } = useSelector(selectUserState);
   const username = userInfo?.info?.username || "Guest";
@@ -114,7 +116,7 @@ const Sidebar = () => {
         <h2>Recent Posts</h2>
         <BreakLine color="17696d" width="50" />
         {postsInfo?.slice(0, 8).map((post) => (
-          <>
+          <PostCard key={post._id}>
             <Link to={`/posts/${post?._id}`}>
               <PostContainer>
                 <img src={post?.photo} alt="" />
@@ -122,7 +124,7 @@ const Sidebar = () => {
               </PostContainer>
             </Link>
             <BreakLine color="lightgrey" width="90" />
-          </>
+          </PostCard>
         ))}
       </RecentPostsContainer>
     </SidebarContainer>
