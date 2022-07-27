@@ -6,11 +6,16 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   padding: 20px 30px;
   width: ${({ width }) => width};
-  border-left: 1px solid var(--clr-primary-1);
-  border-right: 1px solid var(--clr-primary-1);
-  border-bottom: 1px solid var(--clr-primary-1);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-left: ${({ decoration }) =>
+    decoration ? "1px solid var(--clr-primary-1)" : "none"};
+  border-right: ${({ decoration }) =>
+    decoration ? "1px solid var(--clr-primary-1)" : "none"};
+  border-bottom: ${({ decoration }) =>
+    decoration ? "1px solid var(--clr-primary-1)" : "none"};
+  border-bottom-left-radius: ${({ decoration }) =>
+    decoration ? "30px" : "none"};
+  border-bottom-right-radius: ${({ decoration }) =>
+    decoration ? "30px" : "none"};
 `;
 
 export const Button = styled.button`
