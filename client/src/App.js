@@ -6,7 +6,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { Footer, Navbar } from "./components";
+import { Footer, Navbar, SidebarNav } from "./components";
 import {
   HomePage,
   RegisterPage,
@@ -24,6 +24,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <SidebarNav/>
       <Switch>
         <Route exact path="/">
           <HomePage />

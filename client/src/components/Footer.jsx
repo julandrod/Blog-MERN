@@ -19,8 +19,13 @@ const FooterContainer = styled.footer`
 
 const TopSection = styled.div`
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column-reverse;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
 `;
 
 const FooterTitle = styled.h1`
@@ -41,6 +46,7 @@ const Left = styled.div`
   flex: 1.5;
   padding: 20px;
   text-align: justify;
+  border-top: 1px solid var(--text-color);
 `;
 
 const Center = styled.div`
@@ -54,6 +60,10 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const FooterInput = styled.input`
@@ -61,7 +71,11 @@ const FooterInput = styled.input`
   border: none;
   border-radius: 50px;
   padding: 10px;
-  margin-right: 10px;
+  margin: 1rem auto;
+
+  @media (min-width: 768px) {
+    margin-right: 10px;
+  }
 `;
 
 const InputButton = styled.button`
@@ -87,6 +101,7 @@ const InputButton = styled.button`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+  border-top: 1px solid var(--text-color);
 `;
 
 const SocialContainer = styled.div`
@@ -128,6 +143,14 @@ const BottomSection = styled.div`
   }
 `;
 
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
 const Footer = () => {
   return (
     <FooterContainer>
@@ -139,42 +162,44 @@ const Footer = () => {
             electronics, embedded systems. All from Arduino to Raspberry Pi.
           </p>
         </Left>
-        <Center>
-          <FooterTitle>Contact Us</FooterTitle>
-          <ContactItem>
-            <Phone />
-            +1 234 5678
-          </ContactItem>
-          <ContactItem>
-            <MailOutline />
-            contact@electronicsblog.com
-          </ContactItem>
-          <FooterTitle>Newsletter</FooterTitle>
-          <InputContainer>
-            <FooterInput
-              type="text"
-              placeholder="Enter your email to sign up"
-            />
-            <InputButton>Subscribe</InputButton>
-          </InputContainer>
-        </Center>
-        <Right>
-          <FooterTitle>Follow Us</FooterTitle>
-          <SocialContainer>
-            <SocialIcon color="3B5999">
-              <Facebook />
-            </SocialIcon>
-            <SocialIcon color="E4405F">
-              <Instagram />
-            </SocialIcon>
-            <SocialIcon color="55ACEE">
-              <Twitter />
-            </SocialIcon>
-            <SocialIcon color="000000">
-              <GitHub />
-            </SocialIcon>
-          </SocialContainer>
-        </Right>
+        <InfoContainer>
+          <Center>
+            <FooterTitle>Contact Us</FooterTitle>
+            <ContactItem>
+              <Phone />
+              +1 234 5678
+            </ContactItem>
+            <ContactItem>
+              <MailOutline />
+              contact@electronicsblog.com
+            </ContactItem>
+            <FooterTitle>Newsletter</FooterTitle>
+            <InputContainer>
+              <FooterInput
+                type="text"
+                placeholder="Enter your email to sign up"
+              />
+              <InputButton>Subscribe</InputButton>
+            </InputContainer>
+          </Center>
+          <Right>
+            <FooterTitle>Follow Us</FooterTitle>
+            <SocialContainer>
+              <SocialIcon color="3B5999">
+                <Facebook />
+              </SocialIcon>
+              <SocialIcon color="E4405F">
+                <Instagram />
+              </SocialIcon>
+              <SocialIcon color="55ACEE">
+                <Twitter />
+              </SocialIcon>
+              <SocialIcon color="000000">
+                <GitHub />
+              </SocialIcon>
+            </SocialContainer>
+          </Right>
+        </InfoContainer>
       </TopSection>
       <BottomSection>
         <span>

@@ -6,15 +6,17 @@ import { selectPostsState } from "../store/postsSlice";
 import { selectUserState } from "../store/userSlice";
 
 const SidebarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 3;
-  margin: 30px 30px 30px 10px;
-  border-radius: 30px;
-  border-left: 1px solid var(--clr-primary-1);
-  border-right: 1px solid var(--clr-primary-1);
-
-  border-bottom: 1px solid var(--clr-primary-1);
+  display: none;
+  @media (min-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    margin: 30px 30px 30px 10px;
+    border-radius: 30px;
+    border-left: 1px solid var(--clr-primary-1);
+    border-right: 1px solid var(--clr-primary-1);
+    border-bottom: 1px solid var(--clr-primary-1);
+  }
 `;
 
 const SidebarTitleContainer = styled.div`

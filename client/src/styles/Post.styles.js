@@ -4,7 +4,11 @@ export const PostContainer = styled.div`
   display: flex;
   flex: 9;
   flex-direction: column;
-  padding: 40px 60px;
+  padding: 20px 20px;
+
+  @media (min-width: 768px) {
+    padding: 40px 60px;
+  }
 `;
 
 export const TitlePost = styled.h1`

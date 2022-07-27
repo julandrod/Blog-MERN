@@ -16,6 +16,7 @@ const initialState = {
   userInfo: JSON.parse(localStorage.getItem("user")) || null,
   userLoading: false,
   userError: false,
+  isSidebarOpen: false,
 };
 
 const userSlice = createSlice({
@@ -32,6 +33,12 @@ const userSlice = createSlice({
       state.userInfo = null;
       //   state.userInfo.token = "";
       localStorage.setItem("user", JSON.stringify(state.userInfo));
+    },
+    openSidebar: (state) => {
+      state.isSidebarOpen = true;
+    },
+    closeSidebar: (state) => {
+      state.isSidebarOpen = false;
     },
   },
   extraReducers: {
@@ -50,7 +57,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, openSidebar, closeSidebar } = userSlice.actions;
 
 export const selectUserState = (state) => state.user;
 

@@ -25,7 +25,7 @@ const PostCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
-  height: 350px;
+  height: max-content;
   padding: 20px;
   margin: 5px;
 

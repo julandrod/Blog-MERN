@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUserState } from "../store/userSlice";
-import { Create } from "@material-ui/icons";
+import { FaBars } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { openSidebar } from "../store/userSlice";
+import UserButtons from "./UserButtons";
 
 const NavContainer = styled.nav`
   height: 50px;
@@ -20,8 +20,12 @@ const NavContainer = styled.nav`
 `;
 
 const Left = styled.div`
-  flex: 1;
-  border-right: 1px solid var(--text-color);
+  display: none;
+  @media (min-width: 992px) {
+    display: flex;
+    flex: 1;
+    border-right: 1px solid var(--text-color);
+  }
 `;
 
 const Ul = styled.ul`
@@ -56,14 +60,24 @@ const MenuItemContainer = styled.div`
 
 const Center = styled.div`
   flex: 1;
-  text-align: center;
-`;
-const Right = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
-  text-align: right;
-  border-left: 1px solid var(--text-color);
+  justify-content: space-between;
+  margin: 0 20px;
+  @media (min-width: 992px) {
+    justify-content: center;
+  }
+`;
+
+const Right = styled.div`
+  display: none;
+  @media (min-width: 992px) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    border-left: 1px solid var(--text-color);
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -107,8 +121,20 @@ const LoginContainer = styled.div`
   }
 `;
 
+const NavToggle = styled.button`
+  background: transparent;
+  border: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  svg {
+    font-size: 24px;
+  }
+  @media (min-width: 992px) {
+    display: none;
+  }
+`;
+
 const Navbar = () => {
-  const { userInfo } = useSelector(selectUserState);
   const dispatch = useDispatch();
 
   // const profilePic =
@@ -141,46 +167,18 @@ const Navbar = () => {
           </NavLink>
         </Ul>
       </Left>
-      <Center>Electronics Blog</Center>
+      <Center>
+        Electronics Blog
+        <NavToggle onClick={() => dispatch(openSidebar())}>
+          <FaBars />
+        </NavToggle>
+      </Center>
       <Right>
         <SearchContainer>
           <input type="text" placeholder="Search..." />
         </SearchContainer>
         <LoginContainer>
-          {userInfo ? (
-            <>
-              <Ul>
-                <NavLink exact to="/write" activeClassName="selected">
-                  <MenuItemContainer>
-                    <Create />
-                    <Li>Write</Li>
-                  </MenuItemContainer>
-                </NavLink>
-                <MenuItemContainer
-                  onClick={() => dispatch(logout())}
-                  style={{ cursor: "pointer", padding: "0  10px" }}
-                >
-                  <BiLogOut />
-                  <Li>Logout</Li>
-                </MenuItemContainer>
-              </Ul>
-            </>
-          ) : (
-            <Ul>
-              <NavLink exact to="/register" activeClassName="selected">
-                <MenuItemContainer>
-                  <BiUserPlus />
-                  <Li>Register</Li>
-                </MenuItemContainer>
-              </NavLink>
-              <NavLink exact to="/login" activeClassName="selected">
-                <MenuItemContainer>
-                  <BiLogIn />
-                  <Li>Login</Li>
-                </MenuItemContainer>
-              </NavLink>
-            </Ul>
-          )}
+          <UserButtons />
         </LoginContainer>
       </Right>
     </NavContainer>

@@ -5,8 +5,12 @@
   --clr-primary-1: #20979d;
   --clr-primary-2: #17696d;
   --text-color: #e7e7e7;
+  --transition: all 0.3s linear;
 }
 
+ul {
+  list-style-type: none;
+}
 a {
   text-decoration: none;
   font-weight: bold;
