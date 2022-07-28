@@ -18,15 +18,18 @@ const RegisterContainer = styled.div`
 `;
 
 const BackContainer = styled.div`
-  display: flex;
-  position: absolute;
-  top: 80px;
-  left: 50px;
+  display: none;
+  @media (min-width: 992px) {
+    display: flex;
+    position: absolute;
+    top: 80px;
+    left: 50px;
 
-  svg {
-    font-size: 2.5rem;
-    color: var(--clr-primary-1);
-    cursor: pointer;
+    svg {
+      font-size: 2.5rem;
+      color: var(--clr-primary-1);
+      cursor: pointer;
+    }
   }
 `;
 
@@ -34,12 +37,17 @@ const WrapperForm = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 500px;
+  width: 90%;
   height: 500px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  padding: 50px;
+
+  @media (min-width: 768px) {
+    width: 500px;
+    height: 500px;
+    padding: 50px;
+  }
 `;
 
 const Title = styled.span`
@@ -61,6 +69,7 @@ const InputForm = styled.input`
   border: none;
   background-color: var(--clr-background);
   padding: 10px 5px;
+  border-radius: 5px;
 `;
 
 const ButtonContainer = styled.div`
@@ -81,6 +90,7 @@ const FormButton = styled.button`
   color: var(--text-color);
   border: none;
   cursor: pointer;
+  pointer-events: ${({ buttonHidde }) => (buttonHidde ? "none" : "all")};
   opacity: ${({ buttonHidde }) => (buttonHidde ? 0.5 : 1)};
 
   &:hover {
@@ -90,10 +100,14 @@ const FormButton = styled.button`
 `;
 
 const SidebarImg = styled.img`
-  justify-content: flex-end;
-  width: 30%;
-  height: 100%;
-  object-fit: cover;
+  display: none;
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const SignForm = ({

@@ -13,12 +13,15 @@ const ContactContainer = styled.section`
 const FormContactContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 800px;
+  width: 90%;
   background-color: white;
   margin: 30px 0;
   /* border-top-left-radius: 30px;
   border-top-right-radius: 30px; */
   border-radius: 30px;
+  @media (min-width: 768px) {
+    width: 60%;
+  }
 `;
 
 const TitleContact = styled.h1`
@@ -33,16 +36,24 @@ const TitleContact = styled.h1`
 
 const UserInfoContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   border-left: 1px solid var(--clr-primary-1);
   border-right: 1px solid var(--clr-primary-1);
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
-  width: 50%;
+  padding: 0 30px;
+  width: 100%;
+  @media (min-width: 768px) {
+    padding: 20px 30px;
+    width: 50%;
+  }
 `;
 
 const LabelInput = styled.label`
@@ -66,7 +77,7 @@ const Input = styled.input`
 const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
+  padding: 0 30px;
   width: 100%;
   border-left: 1px solid var(--clr-primary-1);
   border-right: 1px solid var(--clr-primary-1);

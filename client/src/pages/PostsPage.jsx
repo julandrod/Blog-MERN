@@ -18,13 +18,16 @@ const PostsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: flex-start;
-  padding: 40px 60px;
+  padding: 20px 10px;
+  @media (min-width: 768px) {
+    padding: 40px 60px;
+  }
 `;
 
 const PostCard = styled.div`
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 90%;
   height: max-content;
   padding: 20px;
   margin: 5px;
@@ -55,6 +58,10 @@ const PostCard = styled.div`
     background-color: var(--clr-background-2);
     border-radius: 10px;
     opacity: 0.8;
+  }
+
+  @media (min-width: 768px) {
+    width: 45%;
   }
 `;
 
